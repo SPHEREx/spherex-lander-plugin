@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{amsmath,amstext}
+\bibliographystyle{aasjournal}
+
+\pagestyle{fancy}
+\usepackage[margin=1in]{geometry}
+\headwidth = 6.5in
+
+\fancyhf{}
+\headheight = 0.6in
+\topmargin = -0.5in
+\lhead{\includegraphics[height=0.5in]{SPHEREx_logo.png}}
+\chead{\large\ Pipeline Module Description \vspace{10pt}\\\modulename}
+\rhead{Version \version, \today}
+\footskip = 8.4pt
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+\newcommand{\spherex}{SPHEREx}
+\newcommand{\ipac}{IPAC}
+
+
+\newcommand{\modulename}{Perform Forced Photometry}
+\newcommand{\pipelevel}{L3}
+\newcommand{\version}{1.1}
+
+\begin{document}
+\begin{center}
+{\Huge\bf\modulename}
+\vskip 0.25in
+{\LARGE\bf Version: \version}
+\vskip 0.25in
+{\LARGE\noindent\bf Pipeline Level:\pipelevel}
+\vskip 0.25in
+{\noindent\bf \ipac\ Lead:  Francis Carrillo francis@example.com}
+\vskip 0.125in
+{\noindent\bf \spherex\ Lead:  Ursula Gomez ursula@example.com }
+\vskip 0.125in
+\end{center}
+
+
+{\noindent\bf Other Authors:}\\
+Stephanie Lowe stephanie@example.com\\
+Efren Archer efren@example.com\\
+
+\vskip 0.25in
+
+{\LARGE\noindent\bf Approved By: \\ \\}
+{\LARGE\noindent\bf Date:}\\
+\vskip 0.25in
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+Lorem ipsum.
+
+
+\end{document}
