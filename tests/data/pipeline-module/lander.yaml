@@ -1,0 +1,9 @@
+source_path: main.tex
+pdf: main.pdf
+parser: spherex-pipeline-module
+theme: spherex
+canonical_url: https://example.com/pipeline-module/
+metadata:
+    status: Delivered
+    difficulty: High
+    diagram_index: 2

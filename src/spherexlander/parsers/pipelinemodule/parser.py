@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from logging import getLogger
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from lander.ext.parser import Contributor, Parser
 from lander.ext.parser.pandoc import convert_text
@@ -21,16 +21,18 @@ logger = getLogger(__name__)
 class SpherexPipelineModuleParser(Parser):
     """Lander metadata parser for SPHEREx documents."""
 
-    def extract_metadata(
-        self, tex_source: str
-    ) -> SpherexPipelineModuleMetadata:
+    def extract_metadata(self) -> SpherexPipelineModuleMetadata:
         """Plugin entrypoint for metadata extraction."""
-        metadata = SpherexPipelineModuleMetadata(
-            title=self._parse_module_name(),
-            version=self._parse_version(),
-            pipeline_level=self._parse_pipeline_level(),
-            authors=self._parse_authors(),
-        )
+        m: Dict[str, Any] = {
+            "title": self._parse_module_name(),
+            "version": self._parse_version(),
+            "pipeline_level": self._parse_pipeline_level(),
+            "authors": self._parse_authors(),
+        }
+        if self.settings.canonical_url:
+            m["canonical_url"] = self.settings.canonical_url
+        m.update(self.settings.metadata)
+        metadata = SpherexPipelineModuleMetadata(**m)
         return metadata
 
     def _parse_module_name(self) -> str:
