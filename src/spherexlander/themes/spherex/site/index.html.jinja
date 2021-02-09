@@ -1,1 +1,74 @@
 {% extends "$base/index.html.jinja" %}
+
+{%- macro emailable_author(author) %}
+  {%- if author.email %}
+    <a href="mailto:{{author.email}}">{{author.name}}</a>
+  {%- else %}
+    {{author.mame}}
+  {%- endif %}
+{%- endmacro %}
+
+{% block html_head_appendix %}
+<link rel="stylesheet" href="spherex.css">
+{% endblock html_head_appendix %}
+
+{% block info_sidebar %}
+{% block info_header %}
+<header class="lander-info-header">
+  <img src="spherex-logo.png" width="120px" />
+  <h1 class="lander-h1 lander-info-header__title">{{ metadata.title }}</h1>
+</header>
+{% endblock info_header %}
+
+{% if metadata.authors %}
+<section class="lander-info-authors">
+  <h2 class="lander-h2 sr-only">Authors</h2>
+  {% if metadata.authors %}
+  <dl class="spherex-author-list">
+    {% if metadata.ipac_lead %}
+      <dt>IPAC Lead</dt>
+      <dd>{{ emailable_author(metadata.ipac_lead) }}</dd>
+    {% endif %}
+    {% if metadata.spherex_lead %}
+      <dt>SPHEREx Lead</dt>
+      <dd>{{ emailable_author(metadata.spherex_lead) }}</dd>
+    {% endif %}
+    {% if metadata.other_authors %}
+      <dt>Other Authors</dt>
+      <dd>
+        <ul class="comma-list">
+        {%- for author in metadata.other_authors %}
+        <li>{{ emailable_author(author) }}</li>
+        {%- endfor %}
+        </ul>
+      </dd>
+    {% endif %}
+  </dl>
+  {% endif %}
+</section>
+{% endif %}
+
+{%- block info_abstract %}
+{% if metadata.abstract.html %}
+<section class="lander-info-abstract">
+  <h2 class="lander-h2 lander-info-abstract__header">Abstract</h2>
+  {{ config.abstract.html|safe }}
+</section>
+{% endif %}
+{%- endblock info_abstract %}
+
+{%- block info_downloads %}
+<section class="lander-info-downloads">
+  <h2 class="lander-h2 lander-info-downloads__header">Download</h2>
+  {%- block info_downloads_filelist %}
+  <ul class="lander-info-filelist">
+    <li><a href="{{ pdf.name|safe }}" download>{{ pdf.name }}</a> ({{ pdf.human_size }})</li>
+    {% for item in attachments %}
+    <li><a href="{{ item.name|safe }}" download>{{ item.name }}</a> ({{ pdf.human_size }})</li>
+    {% endfor %}
+  </ul>
+  {%- endblock info_downloads_filelist %}
+</section>
+{%- endblock info_downloads %}
+
+{% endblock info_sidebar %}
