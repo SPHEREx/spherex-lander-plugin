@@ -535,3 +535,13 @@ main {
   padding-left: 0;
   margin: 0;
 }
+
+.lander-info-filelist {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.lander-info-filelist li {
+  padding-left: 0;
+}
