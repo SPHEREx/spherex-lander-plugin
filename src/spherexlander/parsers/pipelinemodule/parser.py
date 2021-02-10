@@ -6,7 +6,7 @@ import re
 from logging import getLogger
 from typing import Any, Dict, List, Optional
 
-from lander.ext.parser import Contributor, Parser
+from lander.ext.parser import CiPlatform, Contributor, Parser
 from lander.ext.parser.pandoc import convert_text
 
 from spherexlander.parsers.pipelinemodule.datamodel import (
@@ -29,6 +29,16 @@ class SpherexPipelineModuleParser(Parser):
             "pipeline_level": self._parse_pipeline_level(),
             "authors": self._parse_authors(),
         }
+
+        # Incorporate metadata from the CI environment
+        if self.ci_metadata.platform is not CiPlatform.null:
+            m["git_commit_sha"] = self.ci_metadata.git_sha
+            m["git_ref"] = self.ci_metadata.git_ref
+            m["git_ref_type"] = self.ci_metadata.git_ref_type
+            m["ci_build_id"] = self.ci_metadata.build_id
+            m["ci_build_url"] = self.ci_metadata.build_url
+
+        # Apply overrides from the command line or lander.yaml
         if self.settings.canonical_url:
             m["canonical_url"] = self.settings.canonical_url
         m.update(self.settings.metadata)

@@ -4,6 +4,7 @@ from enum import Enum
 from typing import List, Optional
 
 from lander.ext.parser import Contributor, DocumentMetadata
+from pydantic import HttpUrl
 
 
 class Status(str, Enum):
@@ -49,6 +50,21 @@ class SpherexPipelineModuleMetadata(DocumentMetadata):
     """Technical difficulty."""
 
     diagram_index: Optional[int]
+
+    git_commit_sha: Optional[str]
+    """Git Commit SHA."""
+
+    git_ref: Optional[str]
+    """Git ref (branch or tag)."""
+
+    git_ref_type: Optional[str]
+    """Git ref type (branch or tag)."""
+
+    ci_build_id: Optional[str]
+    """CI build ID."""
+
+    ci_build_url: Optional[HttpUrl]
+    """URL of the CI job/build."""
 
     @property
     def ipac_lead(self) -> Optional[str]:

@@ -82,4 +82,28 @@
 </section>
 {%- endblock info_downloads %}
 
+{% block info_metadata %}
+<section class="lander-info-metadata">
+
+</section>
+{% endblock info_metadata %}
+  <h2 class="lander-h2 lander-info-downloads__header">Metadata</h2>
+  <dl class="spherex-metadata-list">
+    {% if metadata.repository_url %}
+      <dt>Repository</dt>
+      <dd><a href="{{metadata.repository_url}}">{{metadata.repository_url}}</a></dd>
+    {% endif %}
+    {% if metadata.git_ref %}
+      <dt>{{ metadata.git_ref_type.title() }}</dt>
+      <dd>{{ metadata.git_ref }}</dd>
+    {% endif %}
+    {% if metadata.git_commit_sha %}
+      <dt>Commit</dt>
+      <dd>{{ metadata.git_commit_sha[:6] }}</dt>
+    {% endif %}
+    {% if metadata.ci_build_id and metadata.ci_build_url %}
+      <dt>CI</dt>
+      <dd><a href="{{ metadata.ci_build_url }}">{{ metadata.ci_build_id }}</a></dd>
+    {% endif %}
+  <dl>
 {% endblock info_sidebar %}
