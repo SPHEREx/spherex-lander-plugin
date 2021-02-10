@@ -489,6 +489,8 @@ main {
   flex: 0 1 20rem;
   margin-bottom: 2rem;
   padding-top: 10px;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 .lander-pdf-container {
