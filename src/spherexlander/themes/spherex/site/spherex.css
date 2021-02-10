@@ -446,6 +446,7 @@ html {
   /* Semantic colors */
   --c-text: var(--c-neutral-900);
   --c-text-fade var(--c-neutral-500);
+  --c-title: var(--c-primary-900);
   --c-link: var(--c-primary-600);
   --c-background: #FFFFFF;
 
@@ -456,13 +457,25 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--c-text);
   background-color: var(--c-background);
 }
 
 a {
   color: var(--c-link);
+}
+
+h1, .lander-h1 {
+  font-size: 2.074rem;
+  line-height: 1.2;
+  color: var(--c-title);
+}
+
+h2, .lander-h2 {
+  font-size: 1.44rem;
+  line-height: 1.2;
+  font-weight: normal;
 }
 
 main {
