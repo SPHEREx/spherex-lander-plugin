@@ -12,6 +12,9 @@ class Status(str, Enum):
     Delivered = "Delivered"
     Unknown = "Unknown"
 
+    def __str__(self) -> str:
+        return self.value
+
 
 class Difficulty(str, Enum):
     """Difficulty level."""
@@ -20,6 +23,9 @@ class Difficulty(str, Enum):
     Medium = "Medium"
     High = "High"
     Unassigned = "Unassigned"
+
+    def __str__(self) -> str:
+        return self.value
 
 
 class SpherexPipelineModuleMetadata(DocumentMetadata):
