@@ -409,6 +409,47 @@ html {
 }
 
 :root {
+  /* Color palette */
+  --c-primary-000: #DCEEFB;
+  --c-primary-100: #B6E0FE;
+  --c-primary-200: #84C5F4;
+  --c-primary-300: #62B0E8;
+  --c-primary-400: #4098D7;
+  --c-primary-500: #2680C2;
+  --c-primary-600: #186FAF;
+  --c-primary-700: #0F609B;
+  --c-primary-800: #0A558C;
+  --c-primary-900: #003E6B;
+
+  --c-secondary-000: #FFFBEA;
+  --c-secondary-100: #FFF3C4;
+  --c-secondary-200: #FCE588;
+  --c-secondary-300: #FADB5F;
+  --c-secondary-400: #F7C948;
+  --c-secondary-500: #F0B429;
+  --c-secondary-600: #DE911D;
+  --c-secondary-700: #CB6E17;
+  --c-secondary-800: #B44D12;
+  --c-secondary-900: #8D2B0B;
+
+  --c-neutral-000: #F0F4F8;
+  --c-neutral-100: #D9E2EC;
+  --c-neutral-200: #BCCCDC;
+  --c-neutral-300: #9FB3C8;
+  --c-neutral-400: #829AB1;
+  --c-neutral-500: #627D98;
+  --c-neutral-600: #486581;
+  --c-neutral-700: #334E68;
+  --c-neutral-800: #243B53;
+  --c-neutral-900: #102A43;
+
+  /* Semantic colors */
+  --c-text: var(--c-neutral-900);
+  --c-text-fade var(--c-neutral-500);
+  --c-link: var(--c-primary-600);
+  --c-background: #FFFFFF;
+
+  /* Ensure type is scalable by the user */
   font-size: 1rem;
 }
 
@@ -416,6 +457,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   line-height: 1.45;
+  color: var(--c-text);
+  background-color: var(--c-background);
+}
+
+a {
+  color: var(--c-link);
 }
 
 main {
