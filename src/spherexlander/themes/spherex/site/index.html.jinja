@@ -1,0 +1,109 @@
+{% extends "$base/index.html.jinja" %}
+
+{%- macro emailable_author(author) %}
+  {%- if author.email %}
+    <a href="mailto:{{author.email}}">{{author.name}}</a>
+  {%- else %}
+    {{author.mame}}
+  {%- endif %}
+{%- endmacro %}
+
+{% block html_head_appendix %}
+<link rel="stylesheet" href="spherex.css">
+{% endblock html_head_appendix %}
+
+{% block info_sidebar %}
+{% block info_header %}
+<header class="lander-info-header">
+  <img src="spherex-logo.png" width="120px" />
+  <h1 class="lander-h1 lander-info-header__title">{{ metadata.title }}</h1>
+  {% if metadata.pipeline_level %}
+  <p class="primary-metadata">{{ metadata.pipeline_level }} pipeline
+    {% if metadata.diagram_index %} (diagram #{{ metadata.diagram_index }}){% endif %}{%- if metadata.difficulty %}, {{ metadata.difficulty.lower() }} difficulty{% endif %}
+  </p>
+  {% endif %}
+  {% if metadata.version %}
+  <p class="version-metadata">
+    Version {{ metadata.version }}{%- if metadata.status %}, status: {{ metadata.status }} {% endif %}
+  </p>
+  {% endif %}
+
+</header>
+{% endblock info_header %}
+
+{% if metadata.authors %}
+<section class="lander-info-authors">
+  <h2 class="lander-h2 sr-only">Authors</h2>
+  {% if metadata.authors %}
+  <dl class="spherex-author-list">
+    {% if metadata.ipac_lead %}
+      <dt>IPAC Lead</dt>
+      <dd>{{ emailable_author(metadata.ipac_lead) }}</dd>
+    {% endif %}
+    {% if metadata.spherex_lead %}
+      <dt>SPHEREx Lead</dt>
+      <dd>{{ emailable_author(metadata.spherex_lead) }}</dd>
+    {% endif %}
+    {% if metadata.other_authors %}
+      <dt>Other Authors</dt>
+      <dd>
+        <ul class="comma-list">
+        {%- for author in metadata.other_authors %}
+        <li>{{ emailable_author(author) }}</li>
+        {%- endfor %}
+        </ul>
+      </dd>
+    {% endif %}
+  </dl>
+  {% endif %}
+</section>
+{% endif %}
+
+{%- block info_abstract %}
+{% if metadata.abstract.html %}
+<section class="lander-info-abstract">
+  <h2 class="lander-h2 lander-info-abstract__header">Abstract</h2>
+  {{ config.abstract.html|safe }}
+</section>
+{% endif %}
+{%- endblock info_abstract %}
+
+{%- block info_downloads %}
+<section class="lander-info-downloads">
+  <h2 class="lander-h2 lander-info-downloads__header">Download</h2>
+  {%- block info_downloads_filelist %}
+  <ul class="lander-info-filelist">
+    <li><a href="{{ pdf.name|safe }}" download>{{ pdf.name }}</a> ({{ pdf.human_size }})</li>
+    {% for item in attachments %}
+    <li><a href="{{ item.name|safe }}" download>{{ item.name }}</a> ({{ pdf.human_size }})</li>
+    {% endfor %}
+  </ul>
+  {%- endblock info_downloads_filelist %}
+</section>
+{%- endblock info_downloads %}
+
+{% block info_metadata %}
+<section class="lander-info-metadata">
+
+</section>
+{% endblock info_metadata %}
+  <h2 class="lander-h2 lander-info-downloads__header">Metadata</h2>
+  <dl class="spherex-metadata-list">
+    {% if metadata.repository_url %}
+      <dt>Repository</dt>
+      <dd><a href="{{metadata.repository_url}}">{{metadata.repository_url}}</a></dd>
+    {% endif %}
+    {% if metadata.git_ref %}
+      <dt>{{ metadata.git_ref_type.title() }}</dt>
+      <dd>{{ metadata.git_ref }}</dd>
+    {% endif %}
+    {% if metadata.git_commit_sha %}
+      <dt>Commit</dt>
+      <dd>{{ metadata.git_commit_sha[:6] }}</dt>
+    {% endif %}
+    {% if metadata.ci_build_id and metadata.ci_build_url %}
+      <dt>CI</dt>
+      <dd><a href="{{ metadata.ci_build_url }}">{{ metadata.ci_build_id }}</a></dd>
+    {% endif %}
+  <dl>
+{% endblock info_sidebar %}
