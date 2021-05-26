@@ -7,7 +7,7 @@ from pathlib import Path
 from lander.settings import BuildSettings
 
 from spherexlander.parsers.pipelinemodule import SpherexPipelineModuleParser
-from spherexlander.parsers.pipelinemodule.datamodel import Difficulty, Status
+from spherexlander.parsers.pipelinemodule.datamodel import Difficulty
 
 
 def test_demodoc() -> None:
@@ -30,7 +30,6 @@ def test_demodoc() -> None:
     assert m.version == "1.1"
     assert m.diagram_index == 2
     assert m.pipeline_level == "L3"
-    assert m.status == Status.Delivered
     assert m.difficulty == Difficulty.High
 
     assert len(m.authors) == 4

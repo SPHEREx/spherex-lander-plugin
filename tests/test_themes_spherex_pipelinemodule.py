@@ -72,5 +72,4 @@ def test_spherex_pipelinemodule(
     assert metadata["title"] == "Perform Forced Photometry"
     assert metadata["pipeline_level"] == "L3"
     assert metadata["diagram_index"] == 2
-    assert metadata["status"] == "Delivered"
     assert metadata["difficulty"] == "High"
