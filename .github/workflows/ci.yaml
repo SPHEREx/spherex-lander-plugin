@@ -28,3 +28,29 @@ jobs:
 
       - name: Run tests
         run: tox -e py,lint,typing
+
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # full history for setuptools_scm
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Python install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+          python -m pip install tox
+
+      - name: Build demo pipeline module site
+        run: tox -e pipelinemodule-demo
+
+      - name: Upload demo artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: demo
+          path: _build
