@@ -537,6 +537,16 @@ main {
   padding-left: 0;
 }
 
+.spherex-metadata-badges {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.spherex-metadata-badges img {
+  margin-right: 4px;
+}
+
 .spherex-metadata-list {
   display: flex;
   flex-flow: row wrap;

@@ -17,15 +17,22 @@
 <header class="lander-info-header">
   <img src="spherex-logo.png" width="120px" />
   <h1 class="lander-h1 lander-info-header__title">{{ metadata.title }}</h1>
-  {% if metadata.pipeline_level %}
-  <p class="primary-metadata">{{ metadata.pipeline_level }} pipeline
-    {% if metadata.diagram_index %} (diagram #{{ metadata.diagram_index }}){% endif %}{%- if metadata.difficulty %}, {{ metadata.difficulty.lower() }} difficulty{% endif %}
-  </p>
-  {% endif %}
+
+  <div class="spherex-metadata-badges">
+    {% if metadata.pipeline_level %}
+      <img alt="Pipeline level {{ metadata.pipeline_level }}" src="https://img.shields.io/badge/Pipeline-{{ metadata.pipeline_level }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level == "L2" %}1AC604{% elif metadata.pipeline_level == "L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
+    {% endif %}
+    {% if metadata.diagram_index %}
+      <img alt="Diagram index {{ metadata.diagram_index }}" src="https://img.shields.io/badge/Diagram_Index-{{ metadata.diagram_index }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level == "L2" %}1AC604{% elif metadata.pipeline_level == "L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
+    {% endif %}
+    {% if metadata.difficulty %}
+      <img alt="{{ metadata.difficulty }} difficulty" src="https://img.shields.io/badge/Difficulty-{{ metadata.difficulty }}-{% if metadata.difficulty == "High" %}red{% elif metadata.difficulty == "Medium" %}yellow{% elif metadata.difficulty == "Low" %}green{% else %}blue{% endif %}">
+    {% endif %}
+  </div>
   {% if metadata.version %}
-  <p class="version-metadata">
-    Version {{ metadata.version }}{%- if metadata.status %}, status: {{ metadata.status }} {% endif %}
-  </p>
+    <p class="version-metadata">
+      Version {{ metadata.version }}
+    </p>
   {% endif %}
 
 </header>
