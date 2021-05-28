@@ -537,10 +537,26 @@ main {
   padding-left: 0;
 }
 
+.spherex-version-metadata {
+  margin-bottom: 2rem;
+}
+
+.spherex-version-metadata__items {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.spherex-version-metadata__item {
+  margin-right: 1rem;
+}
+
 .spherex-metadata-badges {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  margin-bottom: 1rem;
 }
 
 .spherex-metadata-badges img {

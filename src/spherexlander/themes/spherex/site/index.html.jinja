@@ -29,11 +29,24 @@
       <img alt="{{ metadata.difficulty }} difficulty" src="https://img.shields.io/badge/Difficulty-{{ metadata.difficulty }}-{% if metadata.difficulty == "High" %}red{% elif metadata.difficulty == "Medium" %}yellow{% elif metadata.difficulty == "Low" %}green{% else %}blue{% endif %}">
     {% endif %}
   </div>
-  {% if metadata.version %}
-    <p class="version-metadata">
-      Version {{ metadata.version }}
-    </p>
-  {% endif %}
+
+  <div class="spherex-version-metadata">
+    <div class="spherex-version-metadata__items">
+      {% if metadata.version and metadata.dashboard_url %}
+        <span class="spherex-version-metadata__item">Version <a href="{{ metadata.dashboard_url }}">{{ metadata.version }}</a></span>
+      {% elif metadata.version %}
+        <span>Version {{ metadata.version }}</span>
+      {% endif %}
+
+      {% if metadata.date_modified %}
+        <time class="spherex-version-metadata__item" datetime="{{ metadata.date_modified | simple_date }}">{{ metadata.date_modified | simple_date }}</time>
+      {% endif %}
+    </div>
+
+    {% if metadata.dashboard_url %}
+    <nav class="spherex-version-metadata__nav"><a href="{{ metadata.dashboard_url }}">Change version →</a></nav>
+    {% endif %}
+  </div>
 
 </header>
 {% endblock info_header %}

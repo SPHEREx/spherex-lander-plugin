@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import datetime
 from collections import UserDict
 from logging import getLogger
 from typing import Any, Dict, List, Optional
 
+import dateutil.parser
 from lander.ext.parser import CiPlatform, Contributor, Parser
 from lander.ext.parser.pandoc import convert_text
 from lander.ext.parser.texutils.extract import (
@@ -35,6 +37,7 @@ class SpherexPipelineModuleParser(Parser):
             "difficulty": self._parse_difficulty(),
             "diagram_index": self._parse_diagram_index(),
             "authors": self._parse_authors(),
+            "date_modified": self._parse_date(),
         }
 
         # Incorporate metadata from the CI environment
@@ -186,6 +189,20 @@ class SpherexPipelineModuleParser(Parser):
         else:
             email = None
         return Contributor(name=name, email=email, role=role)
+
+    def _parse_date(self) -> Optional[datetime.date]:
+        """Parse the date from either the docDate or vcsDate commands."""
+        # Try docDate first
+        value = None
+        if r"\docDate" in self.tex_macros:
+            value = self.tex_macros[r"\docDate"]
+        elif r"\vcsDate" in self.tex_macros:
+            value = self.tex_macros[r"\vcsDate"]
+
+        if value:
+            return dateutil.parser.isoparse(value).date()
+        else:
+            return None
 
 
 class KVOptionMap(UserDict):
