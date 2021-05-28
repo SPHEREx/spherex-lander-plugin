@@ -128,3 +128,15 @@ class SpherexPipelineModuleMetadata(DocumentMetadata):
             return urllib.parse.urljoin(self.canonical_url, "/v")
         else:
             return None
+
+    @property
+    def document_handle_prefix(self) -> Optional[str]:
+        """The document handle prefix."""
+        if not self.identifier:
+            return None
+
+        try:
+            code = "-".join(self.identifier.split("-")[:2])
+            return code
+        except Exception:
+            return None

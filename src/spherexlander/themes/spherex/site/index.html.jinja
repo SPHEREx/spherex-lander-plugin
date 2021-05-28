@@ -16,12 +16,35 @@
 {% block info_header %}
 <header class="lander-info-header">
   <img src="spherex-logo.png" width="120px" />
+
+  {% if metadata.document_handle_prefix %}
+  <p class="spherex-document-category">
+    {% if metadata.document_handle_prefix == "SSDC-RQ" %}
+      SSDC Requirements Document
+    {% elif metadata.document_handle_prefix == "SSDC-PM" %}
+      SSDC Project Management Document
+    {% elif metadata.document_handle_prefix == "SSDC-MS" %}
+      SSDC Pipeline Module Specification
+    {% elif metadata.document_handle_prefix == "SSDC-DP" %}
+      SSDC Data Product Specification
+    {% elif metadata.document_handle_prefix == "SSDC-TN" %}
+      SSDC Technical Note
+    {% elif metadata.document_handle_prefix == "SSDC-IF" %}
+      SSDC Interface Specification
+    {% elif metadata.document_handle_prefix == "SSDC-TR" %}
+      SSDC Test/Technical Report
+    {% elif metadata.document_handle_prefix == "SSDC-RV" %}
+      SSDC Review Material
+    {% elif metadata.document_handle_prefix == "SSDC-OP" %}
+      SSDC Operations Procedure
+    {% endif %}
+  </p>
+  {% endif %}
+
   <h1 class="lander-h1 lander-info-header__title">{{ metadata.title }}</h1>
 
   {% if metadata.identifier %}
-    <div class="spherex-handle">
-      <span>{{ metadata.identifier }}</span>
-    </div>
+  <p class="spherex-handle">{{ metadata.identifier }}</p>
   {% endif %}
 
   <div class="spherex-metadata-badges">
