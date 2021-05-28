@@ -98,15 +98,15 @@
   <dl class="spherex-metadata-list">
     {% if metadata.repository_url %}
       <dt>Repository</dt>
-      <dd><a href="{{metadata.repository_url}}">{{metadata.repository_url}}</a></dd>
+      <dd><a href="{{metadata.repository_url}}">{{metadata.github_slug}}</a></dd>
     {% endif %}
     {% if metadata.git_ref %}
       <dt>{{ metadata.git_ref_type.title() }}</dt>
-      <dd>{{ metadata.git_ref }}</dd>
+      <dd><a href="{{metadata.github_ref_url}}">{{ metadata.git_ref }}</a></dd>
     {% endif %}
-    {% if metadata.git_commit_sha %}
+    {% if metadata.git_commit_sha and metadata.github_commit_url %}
       <dt>Commit</dt>
-      <dd>{{ metadata.git_commit_sha[:6] }}</dt>
+      <dd><a href="{{ metadata.github_commit_url }}">{{ metadata.git_commit_sha[:6] }}</a></dt>
     {% endif %}
     {% if metadata.ci_build_id and metadata.ci_build_url %}
       <dt>CI</dt>

@@ -45,6 +45,7 @@ class SpherexPipelineModuleParser(Parser):
             m["ci_build_id"] = self.ci_metadata.build_id
             m["ci_build_url"] = self.ci_metadata.build_url
             m["repository_url"] = self.ci_metadata.github_repository
+            m["github_slug"] = self.ci_metadata.github_slug
 
         # Apply overrides from the command line or lander.yaml
         if self.settings.canonical_url:
