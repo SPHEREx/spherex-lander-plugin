@@ -16,17 +16,67 @@
 {% block info_header %}
 <header class="lander-info-header">
   <img src="spherex-logo.png" width="120px" />
+
+  {% if metadata.document_handle_prefix %}
+  <p class="spherex-document-category">
+    {% if metadata.document_handle_prefix == "SSDC-RQ" %}
+      SSDC Requirements Document
+    {% elif metadata.document_handle_prefix == "SSDC-PM" %}
+      SSDC Project Management Document
+    {% elif metadata.document_handle_prefix == "SSDC-MS" %}
+      SSDC Pipeline Module Specification
+    {% elif metadata.document_handle_prefix == "SSDC-DP" %}
+      SSDC Data Product Specification
+    {% elif metadata.document_handle_prefix == "SSDC-TN" %}
+      SSDC Technical Note
+    {% elif metadata.document_handle_prefix == "SSDC-IF" %}
+      SSDC Interface Specification
+    {% elif metadata.document_handle_prefix == "SSDC-TR" %}
+      SSDC Test/Technical Report
+    {% elif metadata.document_handle_prefix == "SSDC-RV" %}
+      SSDC Review Material
+    {% elif metadata.document_handle_prefix == "SSDC-OP" %}
+      SSDC Operations Procedure
+    {% endif %}
+  </p>
+  {% endif %}
+
   <h1 class="lander-h1 lander-info-header__title">{{ metadata.title }}</h1>
-  {% if metadata.pipeline_level %}
-  <p class="primary-metadata">{{ metadata.pipeline_level }} pipeline
-    {% if metadata.diagram_index %} (diagram #{{ metadata.diagram_index }}){% endif %}{%- if metadata.difficulty %}, {{ metadata.difficulty.lower() }} difficulty{% endif %}
-  </p>
+
+  {% if metadata.identifier %}
+  <p class="spherex-handle">{{ metadata.identifier }}</p>
   {% endif %}
-  {% if metadata.version %}
-  <p class="version-metadata">
-    Version {{ metadata.version }}{%- if metadata.status %}, status: {{ metadata.status }} {% endif %}
-  </p>
-  {% endif %}
+
+  <div class="spherex-metadata-badges">
+    {# Badge colors are taken from Brendan Crill's pipeline overview diagram. #}
+    {% if metadata.pipeline_level %}
+      <img alt="Pipeline level {{ metadata.pipeline_level }}" src="https://img.shields.io/badge/Pipeline-{{ metadata.pipeline_level }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level == "L2" %}1AC604{% elif metadata.pipeline_level == "L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
+    {% endif %}
+    {% if metadata.diagram_index %}
+      <img alt="Diagram index {{ metadata.diagram_index }}" src="https://img.shields.io/badge/Diagram_Index-{{ metadata.diagram_index }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level == "L2" %}1AC604{% elif metadata.pipeline_level == "L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
+    {% endif %}
+    {% if metadata.difficulty %}
+      <img alt="{{ metadata.difficulty }} difficulty" src="https://img.shields.io/badge/Difficulty-{{ metadata.difficulty }}-{% if metadata.difficulty == "High" %}red{% elif metadata.difficulty == "Medium" %}yellow{% elif metadata.difficulty == "Low" %}green{% else %}blue{% endif %}">
+    {% endif %}
+  </div>
+
+  <div class="spherex-version-metadata">
+    <div class="spherex-version-metadata__items">
+      {% if metadata.version and metadata.dashboard_url %}
+        <span class="spherex-version-metadata__item">Version <a href="{{ metadata.dashboard_url }}">{{ metadata.version }}</a></span>
+      {% elif metadata.version %}
+        <span>Version {{ metadata.version }}</span>
+      {% endif %}
+
+      {% if metadata.date_modified %}
+        <time class="spherex-version-metadata__item" datetime="{{ metadata.date_modified | simple_date }}">{{ metadata.date_modified | simple_date }}</time>
+      {% endif %}
+    </div>
+
+    {% if metadata.dashboard_url %}
+    <nav class="spherex-version-metadata__nav"><a href="{{ metadata.dashboard_url }}">Change version →</a></nav>
+    {% endif %}
+  </div>
 
 </header>
 {% endblock info_header %}
@@ -91,15 +141,15 @@
   <dl class="spherex-metadata-list">
     {% if metadata.repository_url %}
       <dt>Repository</dt>
-      <dd><a href="{{metadata.repository_url}}">{{metadata.repository_url}}</a></dd>
+      <dd><a href="{{metadata.repository_url}}">{{metadata.github_slug}}</a></dd>
     {% endif %}
     {% if metadata.git_ref %}
       <dt>{{ metadata.git_ref_type.title() }}</dt>
-      <dd>{{ metadata.git_ref }}</dd>
+      <dd><a href="{{metadata.github_ref_url}}">{{ metadata.git_ref }}</a></dd>
     {% endif %}
-    {% if metadata.git_commit_sha %}
+    {% if metadata.git_commit_sha and metadata.github_commit_url %}
       <dt>Commit</dt>
-      <dd>{{ metadata.git_commit_sha[:6] }}</dt>
+      <dd><a href="{{ metadata.github_commit_url }}">{{ metadata.git_commit_sha[:6] }}</a></dt>
     {% endif %}
     {% if metadata.ci_build_id and metadata.ci_build_url %}
       <dt>CI</dt>

@@ -1,9 +1,5 @@
-source_path: main.tex
-pdf: main.pdf
+source_path: SSDC-MS-001.tex
+pdf: SSDC-MS-001.pdf
 parser: spherex-pipeline-module
 theme: spherex
-canonical_url: https://example.com/pipeline-module/
-metadata:
-    status: Delivered
-    difficulty: High
-    diagram_index: 2
+canonical_url: https://example.com/spherex/ssdc-ms-001/

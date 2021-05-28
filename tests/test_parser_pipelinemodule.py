@@ -7,17 +7,17 @@ from pathlib import Path
 from lander.settings import BuildSettings
 
 from spherexlander.parsers.pipelinemodule import SpherexPipelineModuleParser
-from spherexlander.parsers.pipelinemodule.datamodel import Difficulty, Status
+from spherexlander.parsers.pipelinemodule.datamodel import Difficulty
 
 
 def test_demodoc() -> None:
-    """Test with the demodoc (tests/data/pipeline-module/main.tex)."""
+    """Test with the demodoc (tests/data/pipeline-module/ssdc-ms-001.tex)."""
     data_root = Path(__file__).parent / "data" / "pipeline-module"
     output_dir = Path("_build")
 
     settings = BuildSettings.load(
-        source_path=data_root / "main.tex",
-        pdf=data_root / "main.pdf",
+        source_path=data_root / "ssdc-ms-001.tex",
+        pdf=data_root / "SSDC-MS-001.pdf",
         output_dir=output_dir,
         parser="spherex-pipeline-module",
         theme="spherex",
@@ -30,7 +30,6 @@ def test_demodoc() -> None:
     assert m.version == "1.1"
     assert m.diagram_index == 2
     assert m.pipeline_level == "L3"
-    assert m.status == Status.Delivered
     assert m.difficulty == Difficulty.High
 
     assert len(m.authors) == 4

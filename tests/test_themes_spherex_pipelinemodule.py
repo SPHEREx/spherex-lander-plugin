@@ -31,10 +31,10 @@ def test_spherex_pipelinemodule(
     shutil.copytree(
         Path(__file__).parent / "data" / "pipeline-module", doc_dir
     )
-    pdf_path = doc_dir / "main.pdf"
+    pdf_path = doc_dir / "SSDC-MS-001.pdf"
 
     settings = BuildSettings.load(
-        source_path=doc_dir / "main.tex",
+        source_path=doc_dir / "ssdc-ms-001.tex",
         pdf=pdf_path,
         output_dir=output_dir,
         parser="spherex-pipeline-module",
@@ -59,7 +59,7 @@ def test_spherex_pipelinemodule(
 
     index_html_path = output_dir / "index.html"
     assert index_html_path.exists()
-    pdf_path = output_dir / "main.pdf"
+    pdf_path = output_dir / "SSDC-MS-001.pdf"
     assert pdf_path.exists()
     # Check that the JS bundle from the base theme is included
     js_path = output_dir / "lander.bundle.js"
@@ -72,5 +72,4 @@ def test_spherex_pipelinemodule(
     assert metadata["title"] == "Perform Forced Photometry"
     assert metadata["pipeline_level"] == "L3"
     assert metadata["diagram_index"] == 2
-    assert metadata["status"] == "Delivered"
     assert metadata["difficulty"] == "High"
