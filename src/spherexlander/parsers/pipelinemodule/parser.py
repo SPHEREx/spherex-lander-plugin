@@ -38,6 +38,7 @@ class SpherexPipelineModuleParser(Parser):
             "diagram_index": self._parse_diagram_index(),
             "authors": self._parse_authors(),
             "date_modified": self._parse_date(),
+            "identifier": self._parse_handle(),
         }
 
         # Incorporate metadata from the CI environment
@@ -203,6 +204,19 @@ class SpherexPipelineModuleParser(Parser):
             return dateutil.parser.isoparse(value).date()
         else:
             return None
+
+    def _parse_handle(self) -> Optional[str]:
+        """Parse the sphereHandle command."""
+        command = LaTeXCommand(
+            "spherexHandle",
+            LaTeXCommandElement(name="value", required=True, bracket="{"),
+        )
+        instances = [i for i in command.parse(self.tex_source)]
+        if len(instances) == 0:
+            logger.warning("No spherexHandle command detected")
+            return None
+
+        return instances[-1]["value"]
 
 
 class KVOptionMap(UserDict):

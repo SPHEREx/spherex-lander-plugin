@@ -537,6 +537,15 @@ main {
   padding-left: 0;
 }
 
+.lander-info-header__title {
+  margin-bottom: 0.2rem;
+}
+
+.spherex-handle {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
 .spherex-version-metadata {
   margin-bottom: 2rem;
 }
