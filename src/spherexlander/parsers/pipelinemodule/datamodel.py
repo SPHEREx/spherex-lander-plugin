@@ -125,7 +125,10 @@ class SpherexPipelineModuleMetadata(DocumentMetadata):
     def dashboard_url(self) -> Optional[str]:
         """URL to the edition dashboard."""
         if self.canonical_url:
-            return urllib.parse.urljoin(self.canonical_url, "/v")
+            if self.canonical_url.endswith("/"):
+                return f"{self.canonical_url}v/"
+            else:
+                return f"{self.canonical_url}/v/"
         else:
             return None
 
