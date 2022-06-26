@@ -149,11 +149,11 @@
     {% endif %}
     {% if metadata.git_commit_sha and metadata.github_commit_url %}
       <dt>Commit</dt>
-      <dd><a href="{{ metadata.github_commit_url }}">{{ metadata.git_commit_sha[:6] }}</a></dt>
+      <dd><a href="{{ metadata.github_commit_url }}">{{ metadata.git_commit_sha[:6] }}</a></dd>
     {% endif %}
     {% if metadata.ci_build_id and metadata.ci_build_url %}
       <dt>CI</dt>
       <dd><a href="{{ metadata.ci_build_url }}">{{ metadata.ci_build_id }}</a></dd>
     {% endif %}
-  <dl>
+  </dl>
 {% endblock info_sidebar %}
