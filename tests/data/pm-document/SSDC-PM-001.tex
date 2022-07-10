@@ -1,0 +1,33 @@
+\documentclass[PM]{spherex}
+% spherex class documentation: https://github.com/SPHEREx/spherex-tex/blob/main/README.md
+
+\input{meta}
+
+\spherexHandle{SSDC-PM-001}
+\title{Example Title}
+
+\version{1.0}
+% \docDate{2021-12-10} % uncomment to override the vcs date (see meta.tex)
+% \approved{2021-12-10}{Approver Name} % uncomment to set approval metadata
+
+\ipaclead[email=person@example.edu]{Example Lead}
+
+% Additional authors, if any, separated by "\\":
+\author{
+  \person[email=galileo@example.com]{Galileo~Galilei} \\
+  \person{Isaac~Newton}
+}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}\label{introduction}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin facilisis pharetra neque, at semper nulla mattis auctor. Proin semper mollis enim eget interdum. Mauris eleifend eget diam vitae bibendum. Praesent ut aliquet odio, sodales imperdiet nisi. Nam interdum imperdiet tortor sed fringilla. Maecenas efficitur mi sodales nulla commodo rutrum. Ut ornare diam quam, sed commodo turpis aliquam et. In nec enim consequat, suscipit tortor sit amet, luctus ante. Integer dictum augue diam, non pulvinar massa euismod in. Morbi viverra condimentum auctor. Nullam et metus mauris. Cras risus ex, porta sit amet nibh et, dapibus auctor leo.
+
+% spherex.bib is distributed with spherex-tex and maintained at
+% https://github.com/SPHEREx/spherex-tex/blob/main/texmf/bibtex/bib/spherex.bib
+\bibliography{spherex}
+
+\end{document}
