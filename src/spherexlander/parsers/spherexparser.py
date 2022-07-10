@@ -27,6 +27,24 @@ class SpherexParser(Parser):
     to implement their specific data models.
     """
 
+    def _parse_title(self) -> str:
+        """Parse the title command.
+
+        If the title command includes an optional short version, this method
+        parsers only the required longer version.
+        """
+        command = LaTeXCommand(
+            "title",
+            LaTeXCommandElement(
+                name="short_title", required=False, bracket="["
+            ),
+            LaTeXCommandElement(name="long_title", required=True, bracket="{"),
+        )
+        titles = [t for t in command.parse(self.tex_source)]
+        if len(titles) == 0:
+            raise RuntimeError("Could not parse a title command.")
+        return titles[-1]["long_title"]
+
     def _parse_version(self) -> Optional[str]:
         """Parse the version command."""
         command = LaTeXCommand(
