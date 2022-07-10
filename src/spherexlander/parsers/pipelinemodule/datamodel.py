@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import urllib.parse
 from enum import Enum
 from typing import List, Optional
 
-from lander.ext.parser import Contributor, DocumentMetadata
-from pydantic import HttpUrl
+from lander.ext.parser import Contributor
+
+from ..spherexdata import SpherexMetadata
 
 
 class Status(str, Enum):
@@ -30,7 +30,7 @@ class Difficulty(str, Enum):
         return self.value
 
 
-class SpherexPipelineModuleMetadata(DocumentMetadata):
+class SpherexPipelineModuleMetadata(SpherexMetadata):
     """Metadata container for describing SPHEREx pipeline module documents.
 
     This metadata is gathered from the content of the document as well as from
@@ -51,24 +51,6 @@ class SpherexPipelineModuleMetadata(DocumentMetadata):
     """Technical difficulty."""
 
     diagram_index: Optional[int]
-
-    git_commit_sha: Optional[str]
-    """Git Commit SHA."""
-
-    git_ref: Optional[str]
-    """Git ref (branch or tag)."""
-
-    git_ref_type: Optional[str]
-    """Git ref type (branch or tag)."""
-
-    ci_build_id: Optional[str]
-    """CI build ID."""
-
-    ci_build_url: Optional[HttpUrl]
-    """URL of the CI job/build."""
-
-    github_slug: Optional[str]
-    """The slug (``org/name``) of the repository on GitHub."""
 
     @property
     def ipac_lead(self) -> Optional[str]:
@@ -94,52 +76,3 @@ class SpherexPipelineModuleMetadata(DocumentMetadata):
             for a in self.authors
             if a.role not in {"IPAC Lead", "SPHEREx Lead"}
         ]
-
-    @property
-    def github_ref_url(self) -> Optional[str]:
-        """The GitHub web URL corresponding to the branch or tag."""
-        # Ensure sufficient data and GitHub hosting
-        if self.repository_url and self.github_slug and self.git_ref:
-            repo_url = self.repository_url
-            if not repo_url.endswith("/"):
-                repo_url = f"{repo_url}/"
-            return urllib.parse.urljoin(repo_url, f"tree/{self.git_ref}")
-        else:
-            return None
-
-    @property
-    def github_commit_url(self) -> Optional[str]:
-        """The GitHub web URL corresponding to the commit."""
-        # Ensure sufficient data and GitHub hosting
-        if self.repository_url and self.github_slug and self.git_commit_sha:
-            repo_url = self.repository_url
-            if not repo_url.endswith("/"):
-                repo_url = f"{repo_url}/"
-            return urllib.parse.urljoin(
-                repo_url, f"commit/{self.git_commit_sha}"
-            )
-        else:
-            return None
-
-    @property
-    def dashboard_url(self) -> Optional[str]:
-        """URL to the edition dashboard."""
-        if self.canonical_url:
-            if self.canonical_url.endswith("/"):
-                return f"{self.canonical_url}v/"
-            else:
-                return f"{self.canonical_url}/v/"
-        else:
-            return None
-
-    @property
-    def document_handle_prefix(self) -> Optional[str]:
-        """The document handle prefix."""
-        if not self.identifier:
-            return None
-
-        try:
-            code = "-".join(self.identifier.split("-")[:2])
-            return code
-        except Exception:
-            return None
