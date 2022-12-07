@@ -26,6 +26,18 @@ class SpherexSsdcIfMetadata(SpherexMetadata):
         return None
 
     @property
+    def interface_partner(self) -> Optional[Contributor]:
+        """The interface partner."""
+        for author in self.authors:
+            if author.role == "Interface Partner":
+                return author
+        return None
+
+    @property
     def other_authors(self) -> List[Contributor]:
         """Additional authors."""
-        return [a for a in self.authors if a.role not in {"SPHEREx Lead"}]
+        return [
+            a
+            for a in self.authors
+            if a.role not in {"SPHEREx Lead", "Interface Partner"}
+        ]
