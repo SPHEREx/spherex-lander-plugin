@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
-from lander.ext.parser import CiPlatform, Contributor
+from lander.ext.parser import CiPlatform
 from lander.ext.parser.texutils.extract import (
     LaTeXCommand,
     LaTeXCommandElement,
 )
 
-from ..spherexparser import KVOptionMap, SpherexParser, convert_tex_span
+from ..spherexparser import SpherexParser, convert_tex_span
 from .datamodel import SpherexSsdcIfMetadata
 
 __all__ = ["SpherexSsdcIfParser"]
@@ -30,6 +30,7 @@ class SpherexSsdcIfParser(SpherexParser):
             "authors": self._parse_authors(),
             "date_modified": self._parse_date(),
             "identifier": self._parse_handle(),
+            "interface_partner": self._parse_interface_partner(),
         }
 
         # Incorporate metadata from the CI environment
@@ -49,20 +50,10 @@ class SpherexSsdcIfParser(SpherexParser):
         metadata = SpherexSsdcIfMetadata(**m)
         return metadata
 
-    def _parse_authors(self) -> List[Contributor]:
-        authors = super()._parse_authors()
-
-        interface_partner = self._parse_interface_partner()
-        if interface_partner:
-            authors.append(interface_partner)
-
-        return authors
-
-    def _parse_interface_partner(self) -> Optional[Contributor]:
-        command_name = "interfaceparter"
+    def _parse_interface_partner(self) -> Optional[str]:
+        command_name = "interfacepartner"
         command = LaTeXCommand(
             command_name,
-            LaTeXCommandElement(name="options", required=False, bracket="["),
             LaTeXCommandElement(name="name", required=True, bracket="{"),
         )
         instances = [i for i in command.parse(self.tex_source)]
@@ -72,12 +63,4 @@ class SpherexSsdcIfParser(SpherexParser):
 
         instance = instances[-1]
         name = convert_tex_span(instance["name"])
-        if "options" in instance:
-            option_map = KVOptionMap.parse(instance["options"])
-        else:
-            option_map = KVOptionMap()
-        if "email" in option_map:
-            email = option_map["email"]
-        else:
-            email = None
-        return Contributor(name=name, email=email, role="Interface Partner")
+        return name

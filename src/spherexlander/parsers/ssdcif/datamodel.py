@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import List, Optional
 
 from lander.ext.parser import Contributor
+from pydantic import Field
 
 from ..spherexdata import SpherexMetadata
 
@@ -17,6 +18,10 @@ class SpherexSsdcIfMetadata(SpherexMetadata):
     populate the landing page.
     """
 
+    interface_partner: Optional[str] = Field(
+        None, description="The name of the interface partner, if available."
+    )
+
     @property
     def spherex_lead(self) -> Optional[Contributor]:
         """The lead SPHEREx author."""
@@ -26,18 +31,6 @@ class SpherexSsdcIfMetadata(SpherexMetadata):
         return None
 
     @property
-    def interface_partner(self) -> Optional[Contributor]:
-        """The interface partner."""
-        for author in self.authors:
-            if author.role == "Interface Partner":
-                return author
-        return None
-
-    @property
     def other_authors(self) -> List[Contributor]:
         """Additional authors."""
-        return [
-            a
-            for a in self.authors
-            if a.role not in {"SPHEREx Lead", "Interface Partner"}
-        ]
+        return [a for a in self.authors if a.role not in {"SPHEREx Lead"}]
