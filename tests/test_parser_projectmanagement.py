@@ -40,3 +40,5 @@ def test_demo() -> None:
     assert m.authors[1].email == "galileo@example.com"
     assert m.authors[2].name == "Isaac Newton"
     assert m.authors[2].email is None
+    assert m.approval.name == "Approver Name"
+    assert m.approval.date == "2021-12-10"

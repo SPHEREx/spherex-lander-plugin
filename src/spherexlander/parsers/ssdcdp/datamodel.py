@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from lander.ext.parser import Contributor
 
-from ..spherexdata import SpherexMetadata
+from ..spherexdata import ApprovalInfo, SpherexMetadata
 
 __all__ = ["SpherexSsdcDpMetadata"]
 
@@ -16,6 +16,8 @@ class SpherexSsdcDpMetadata(SpherexMetadata):
     configuration files provided during the build. This metadata is used to
     populate the landing page.
     """
+
+    approval: Optional[ApprovalInfo] = None
 
     @property
     def spherex_lead(self) -> Optional[Contributor]:

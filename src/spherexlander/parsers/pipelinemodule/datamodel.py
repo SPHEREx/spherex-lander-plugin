@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from lander.ext.parser import Contributor
 
-from ..spherexdata import SpherexMetadata
+from ..spherexdata import ApprovalInfo, SpherexMetadata
 
 
 class Status(str, Enum):
@@ -50,7 +50,9 @@ class SpherexPipelineModuleMetadata(SpherexMetadata):
     difficulty: Difficulty = Difficulty.Unassigned
     """Technical difficulty."""
 
-    diagram_index: Optional[int]
+    diagram_index: Optional[int] = None
+
+    approval: Optional[ApprovalInfo] = None
 
     @property
     def ipac_lead(self) -> Optional[str]:

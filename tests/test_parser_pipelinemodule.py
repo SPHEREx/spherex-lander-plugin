@@ -42,3 +42,4 @@ def test_demodoc() -> None:
     assert m.authors[2].email == "stephanie@example.com"
     assert m.authors[3].name == "Efren Archer"
     assert m.authors[3].email == "efren@example.com"
+    assert m.approval is None

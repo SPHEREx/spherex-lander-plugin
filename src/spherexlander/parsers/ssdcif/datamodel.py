@@ -5,7 +5,7 @@ from typing import List, Optional
 from lander.ext.parser import Contributor
 from pydantic import Field
 
-from ..spherexdata import SpherexMetadata
+from ..spherexdata import ApprovalInfo, SpherexMetadata
 
 __all__ = ["SpherexSsdcIfMetadata"]
 
@@ -17,6 +17,8 @@ class SpherexSsdcIfMetadata(SpherexMetadata):
     configuration files provided during the build. This metadata is used to
     populate the landing page.
     """
+
+    approval: Optional[ApprovalInfo] = None
 
     interface_partner: Optional[str] = Field(
         None, description="The name of the interface partner, if available."

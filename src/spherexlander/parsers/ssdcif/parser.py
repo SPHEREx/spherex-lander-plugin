@@ -31,6 +31,7 @@ class SpherexSsdcIfParser(SpherexParser):
             "date_modified": self._parse_date(),
             "identifier": self._parse_handle(),
             "interface_partner": self._parse_interface_partner(),
+            "approval": self._parse_approved(),
         }
 
         # Incorporate metadata from the CI environment

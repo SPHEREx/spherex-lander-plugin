@@ -15,6 +15,8 @@ from lander.ext.parser.texutils.extract import (
     LaTeXCommandElement,
 )
 
+from .spherexdata import ApprovalInfo
+
 __all__ = ["SpherexParser", "KVOptionMap"]
 
 logger = getLogger(__name__)
@@ -146,6 +148,23 @@ class SpherexParser(Parser):
             return None
 
         return instances[-1]["value"]
+
+    def _parse_approved(self) -> Optional[ApprovalInfo]:
+        """Parse the approved command."""
+        command = LaTeXCommand(
+            "approved",
+            LaTeXCommandElement(name="date", required=True, bracket="{"),
+            LaTeXCommandElement(name="name", required=True, bracket="{"),
+        )
+        instances = [i for i in command.parse(self.tex_source)]
+        if len(instances) == 0:
+            logger.warning("No approved command detected")
+            return None
+
+        return ApprovalInfo(
+            name=instances[-1]["name"],
+            date=instances[-1]["date"],
+        )
 
 
 class KVOptionMap(UserDict):
