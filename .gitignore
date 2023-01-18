@@ -130,3 +130,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# LaTeX intermediate build files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.xdv
