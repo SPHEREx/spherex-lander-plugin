@@ -6,9 +6,9 @@ import urllib.parse
 from typing import Optional
 
 from lander.ext.parser import DocumentMetadata
-from pydantic import HttpUrl
+from pydantic import BaseModel, Field, HttpUrl
 
-__all__ = ["SpherexMetadata"]
+__all__ = ["SpherexMetadata", "ApprovalInfo"]
 
 
 class SpherexMetadata(DocumentMetadata):
@@ -83,3 +83,11 @@ class SpherexMetadata(DocumentMetadata):
             return code
         except Exception:
             return None
+
+
+class ApprovalInfo(BaseModel):
+    """A document's approval metadata."""
+
+    name: str = Field(..., description="Name of the approver.")
+
+    date: str = Field(..., description="Date of the approval.")

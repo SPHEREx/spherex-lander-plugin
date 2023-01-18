@@ -1,4 +1,4 @@
-"""Parsing plugin for SPHEREx PM (project management) documents."""
+"""Parsing plugin for SPHEREx SSDC-DP documents."""
 
 from __future__ import annotations
 
@@ -8,17 +8,17 @@ from typing import Any, Dict
 from lander.ext.parser import CiPlatform
 
 from ..spherexparser import SpherexParser
-from .datamodel import SpherexProjectManagementMetadata
+from .datamodel import SpherexSsdcDpMetadata
 
-__all__ = ["SpherexProjectManagementParser"]
+__all__ = ["SpherexSsdcDpParser"]
 
 logger = getLogger(__name__)
 
 
-class SpherexProjectManagementParser(SpherexParser):
-    """Lander metadata parser for SPHEREx Project Management (PM) documents."""
+class SpherexSsdcDpParser(SpherexParser):
+    """Lander metadata parser for SPHEREx SSDC-DP documents."""
 
-    def extract_metadata(self) -> SpherexProjectManagementMetadata:
+    def extract_metadata(self) -> SpherexSsdcDpMetadata:
         """Plugin entrypoint for metadata extraction."""
         m: Dict[str, Any] = {
             "title": self._parse_title(),
@@ -43,5 +43,5 @@ class SpherexProjectManagementParser(SpherexParser):
         if self.settings.canonical_url:
             m["canonical_url"] = self.settings.canonical_url
         m.update(self.settings.metadata)
-        metadata = SpherexProjectManagementMetadata(**m)
+        metadata = SpherexSsdcDpMetadata(**m)
         return metadata

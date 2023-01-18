@@ -37,6 +37,7 @@ class SpherexPipelineModuleParser(SpherexParser):
             "authors": self._parse_authors(),
             "date_modified": self._parse_date(),
             "identifier": self._parse_handle(),
+            "approval": self._parse_approved(),
         }
 
         # Incorporate metadata from the CI environment
