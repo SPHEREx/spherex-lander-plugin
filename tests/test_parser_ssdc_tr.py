@@ -31,8 +31,8 @@ def test_tr_req() -> None:
     assert m.document_handle_prefix == "SSDC-TR"
     assert len(m.authors) == 1
     assert len(m.other_authors) == 0
-    assert m.spherex_lead.name == "Galileo Galilei"
-    assert m.spherex_lead.email == "galileo@example.com"
+    assert m.ipac_lead_v2.name == "Galileo Galilei"
+    assert m.ipac_lead_v2.email == "galileo@example.com"
     assert m.approval.name == "Edwin Hubble"
     assert m.approval.date == "2021-01-01"
     assert m.ipac_jira_id == "SVV-999"
@@ -64,8 +64,8 @@ def test_tr_va() -> None:
     assert m.document_handle_prefix == "SSDC-TR"
     assert len(m.authors) == 1
     assert len(m.other_authors) == 0
-    assert m.spherex_lead.name == "Galileo Galilei"
-    assert m.spherex_lead.email == "galileo@example.com"
+    assert m.ipac_lead_v2.name == "Galileo Galilei"
+    assert m.ipac_lead_v2.email == "galileo@example.com"
     assert m.approval.name == "Edwin Hubble"
     assert m.approval.date == "2021-01-01"
     assert m.ipac_jira_id == "SVV-999"

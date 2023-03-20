@@ -86,13 +86,13 @@
   <h2 class="lander-h2 sr-only">Authors</h2>
   {% if metadata.authors %}
   <dl class="spherex-author-list">
-    {% if metadata.ipac_lead %}
+    {% if metadata.ipac_lead_v2 %}
       <dt>IPAC Lead</dt>
-      <dd>{{ emailable_author(metadata.ipac_lead) }}</dd>
+      <dd>{{ emailable_author(metadata.ipac_lead_v2) }}</dd>
     {% endif %}
-    {% if metadata.spherex_lead %}
+    {% if metadata.spherex_poc_v2 %}
       <dt>SPHEREx POC</dt>
-      <dd>{{ emailable_author(metadata.spherex_lead) }}</dd>
+      <dd>{{ emailable_author(metadata.spherex_poc_v2) }}</dd>
     {% endif %}
     {% if metadata.other_authors %}
       <dt>Other Authors</dt>

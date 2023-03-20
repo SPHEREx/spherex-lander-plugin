@@ -55,7 +55,7 @@ class SpherexPipelineModuleMetadata(SpherexMetadata):
     approval: Optional[ApprovalInfo] = None
 
     @property
-    def ipac_lead(self) -> Optional[str]:
+    def ipac_lead_v2(self) -> Optional[str]:
         """The lead IPAC author."""
         for author in self.authors:
             if author.role == "IPAC Lead":
@@ -63,8 +63,8 @@ class SpherexPipelineModuleMetadata(SpherexMetadata):
         return None
 
     @property
-    def spherex_lead(self) -> Optional[Contributor]:
-        """The lead SPHEREx author."""
+    def spherex_poc_v2(self) -> Optional[Contributor]:
+        """The lead SPHEREx point of contact."""
         for author in self.authors:
             if author.role == "SPHEREx Lead":
                 return author

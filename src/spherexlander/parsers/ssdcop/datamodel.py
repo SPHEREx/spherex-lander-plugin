@@ -20,14 +20,14 @@ class SpherexSsdcOpMetadata(SpherexMetadata):
     approval: Optional[ApprovalInfo] = None
 
     @property
-    def spherex_lead(self) -> Optional[Contributor]:
-        """The lead SPHEREx author."""
+    def ipac_lead_v2(self) -> Optional[Contributor]:
+        """The lead IPAC author."""
         for author in self.authors:
-            if author.role == "SPHEREx Lead":
+            if author.role == "IPAC Lead":
                 return author
         return None
 
     @property
     def other_authors(self) -> List[Contributor]:
         """Additional authors."""
-        return [a for a in self.authors if a.role not in {"SPHEREx Lead"}]
+        return [a for a in self.authors if a.role not in {"IPAC Lead"}]
