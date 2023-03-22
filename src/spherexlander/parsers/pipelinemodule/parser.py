@@ -5,9 +5,8 @@ documents.
 from __future__ import annotations
 
 from logging import getLogger
-from typing import Any, Dict, Optional
+from typing import Optional
 
-from lander.ext.parser import CiPlatform
 from lander.ext.parser.texutils.extract import (
     LaTeXCommand,
     LaTeXCommandElement,
@@ -28,32 +27,12 @@ class SpherexPipelineModuleParser(SpherexParser):
 
     def extract_metadata(self) -> SpherexPipelineModuleMetadata:
         """Plugin entrypoint for metadata extraction."""
-        m: Dict[str, Any] = {
-            "title": self._parse_module_name(),
-            "version": self._parse_version(),
-            "pipeline_level": self._parse_pipeline_level(),
-            "difficulty": self._parse_difficulty(),
-            "diagram_index": self._parse_diagram_index(),
-            "authors": self._parse_authors(),
-            "date_modified": self._parse_date(),
-            "identifier": self._parse_handle(),
-            "approval": self._parse_approved(),
-        }
-
-        # Incorporate metadata from the CI environment
-        if self.ci_metadata.platform is not CiPlatform.null:
-            m["git_commit_sha"] = self.ci_metadata.git_sha
-            m["git_ref"] = self.ci_metadata.git_ref
-            m["git_ref_type"] = self.ci_metadata.git_ref_type
-            m["ci_build_id"] = self.ci_metadata.build_id
-            m["ci_build_url"] = self.ci_metadata.build_url
-            m["repository_url"] = self.ci_metadata.github_repository
-            m["github_slug"] = self.ci_metadata.github_slug
-
-        # Apply overrides from the command line or lander.yaml
-        if self.settings.canonical_url:
-            m["canonical_url"] = self.settings.canonical_url
-        m.update(self.settings.metadata)
+        m = self._collect_common_metadata()
+        m["title"] = self._parse_module_name()
+        m["pipeline_level"] = self._parse_pipeline_level()
+        m["difficulty"] = self._parse_difficulty()
+        m["diagram_index"] = self._parse_diagram_index()
+        m["approval"] = self._parse_approved()
         metadata = SpherexPipelineModuleMetadata(**m)
         return metadata
 

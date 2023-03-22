@@ -5,10 +5,10 @@ from __future__ import annotations
 import datetime
 from collections import UserDict
 from logging import getLogger
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import dateutil.parser
-from lander.ext.parser import Contributor, Parser
+from lander.ext.parser import CiPlatform, Contributor, Parser
 from lander.ext.parser.pandoc import convert_text
 from lander.ext.parser.texutils.extract import (
     LaTeXCommand,
@@ -28,6 +28,41 @@ class SpherexParser(Parser):
     Parsers for specific document types can inherit from this base class
     to implement their specific data models.
     """
+
+    def _collect_common_metadata(self) -> dict[str, Any]:
+        """Collect metadata common to most SPHEREx documents.
+
+        The extract_metadata methods of individual documents can enrich this
+        data as necessary.
+        """
+        m: dict[str, Any] = {
+            "version": self._parse_version(),
+            "authors": self._parse_authors(),
+            "date_modified": self._parse_date(),
+            "identifier": self._parse_handle(),
+        }
+        try:
+            # some documents may have other ways of setting the title
+            # than the \title attribute
+            m["title"] = self._parse_title()
+        except Exception:
+            pass
+
+        # Incorporate metadata from the CI environment
+        if self.ci_metadata.platform is not CiPlatform.null:
+            m["git_commit_sha"] = self.ci_metadata.git_sha
+            m["git_ref"] = self.ci_metadata.git_ref
+            m["git_ref_type"] = self.ci_metadata.git_ref_type
+            m["ci_build_id"] = self.ci_metadata.build_id
+            m["ci_build_url"] = self.ci_metadata.build_url
+            m["repository_url"] = self.ci_metadata.github_repository
+            m["github_slug"] = self.ci_metadata.github_slug
+
+        # Apply overrides from the command line or lander.yaml
+        if self.settings.canonical_url:
+            m["canonical_url"] = self.settings.canonical_url
+
+        return m
 
     def _parse_title(self) -> str:
         """Parse the title command.
