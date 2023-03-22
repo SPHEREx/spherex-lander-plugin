@@ -5,7 +5,7 @@ from __future__ import annotations
 import urllib.parse
 from typing import Optional
 
-from lander.ext.parser import DocumentMetadata
+from lander.ext.parser import Contributor, DocumentMetadata
 from pydantic import BaseModel, Field, HttpUrl
 
 __all__ = ["SpherexMetadata", "ApprovalInfo"]
@@ -83,6 +83,35 @@ class SpherexMetadata(DocumentMetadata):
             return code
         except Exception:
             return None
+
+    @property
+    def ipac_lead(self) -> Optional[Contributor]:
+        r"""The IPAC Lead (SSDC lead), set via the ``\ipaclead`` LaTeX
+        command.
+        """
+        for author in self.authors:
+            if author.role == "IPAC Lead":
+                return author
+        return None
+
+    @property
+    def spherex_poc(self) -> Optional[Contributor]:
+        r"""The SPHEREx POC (Project POC), set via the ``\spherexlead`` LaTeX
+        command.
+        """
+        for author in self.authors:
+            if author.role == "SPHEREx Lead":
+                return author
+        return None
+
+    @property
+    def other_authors(self) -> list[Contributor]:
+        """Additional authors that are not IPAC or SPHEREx leads."""
+        return [
+            a
+            for a in self.authors
+            if a.role not in {"IPAC Lead", "SPHEREx Lead"}
+        ]
 
 
 class ApprovalInfo(BaseModel):
