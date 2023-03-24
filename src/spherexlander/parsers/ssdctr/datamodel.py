@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 
-from lander.ext.parser import Contributor
 from pydantic import BaseModel, Field
 
 from ..spherexdata import ApprovalInfo, SpherexMetadata
@@ -39,16 +38,3 @@ class SpherexSsdcTrMetadata(SpherexMetadata):
     req_doors_id: Optional[DoorsID] = Field(
         None, description="REQ (requirement) Doors ID"
     )
-
-    @property
-    def spherex_lead(self) -> Optional[Contributor]:
-        """The lead SPHEREx author."""
-        for author in self.authors:
-            if author.role == "SPHEREx Lead":
-                return author
-        return None
-
-    @property
-    def other_authors(self) -> List[Contributor]:
-        """Additional authors."""
-        return [a for a in self.authors if a.role not in {"SPHEREx Lead"}]

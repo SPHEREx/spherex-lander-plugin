@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional
-
-from lander.ext.parser import Contributor
+from typing import Optional
 
 from ..spherexdata import ApprovalInfo, SpherexMetadata
 
@@ -19,28 +17,3 @@ class SpherexProjectManagementMetadata(SpherexMetadata):
     """
 
     approval: Optional[ApprovalInfo] = None
-
-    @property
-    def ipac_lead(self) -> Optional[str]:
-        """The lead IPAC author."""
-        for author in self.authors:
-            if author.role == "IPAC Lead":
-                return author
-        return None
-
-    @property
-    def spherex_lead(self) -> Optional[Contributor]:
-        """The lead SPHEREx author."""
-        for author in self.authors:
-            if author.role == "SPHEREx Lead":
-                return author
-        return None
-
-    @property
-    def other_authors(self) -> List[Contributor]:
-        """Additional authors."""
-        return [
-            a
-            for a in self.authors
-            if a.role not in {"IPAC Lead", "SPHEREx Lead"}
-        ]
