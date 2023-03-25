@@ -51,36 +51,28 @@
     {# Badge colors are taken from Brendan Crill's pipeline overview diagram. #}
     {% if metadata.pipeline_level %}
     <img alt="Pipeline level {{ metadata.pipeline_level }}"
-      src="https://img.shields.io/badge/Pipeline-{{ metadata.pipeline_level }}-{% if metadata.pipeline_level == " L1"
-      %}88BFFE{% elif metadata.pipeline_level=="L2" %}1AC604{% elif metadata.pipeline_level=="L3" %}BEB1D0{% else
-      %}FEBCFF{% endif %}">
+      src="https://img.shields.io/badge/Pipeline-{{ metadata.pipeline_level }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level=="L2" %}1AC604{% elif metadata.pipeline_level=="L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
     {% endif %}
     {% if metadata.diagram_index %}
     <img alt="Diagram index {{ metadata.diagram_index }}"
-      src="https://img.shields.io/badge/Diagram_Index-{{ metadata.diagram_index }}-{% if metadata.pipeline_level == "
-      L1" %}88BFFE{% elif metadata.pipeline_level=="L2" %}1AC604{% elif metadata.pipeline_level=="L3" %}BEB1D0{% else
-      %}FEBCFF{% endif %}">
+      src="https://img.shields.io/badge/Diagram_Index-{{ metadata.diagram_index }}-{% if metadata.pipeline_level == "L1" %}88BFFE{% elif metadata.pipeline_level=="L2" %}1AC604{% elif metadata.pipeline_level=="L3" %}BEB1D0{% else %}FEBCFF{% endif %}">
     {% endif %}
     {% if metadata.difficulty %}
     <img alt="{{ metadata.difficulty }} difficulty"
-      src="https://img.shields.io/badge/Difficulty-{{ metadata.difficulty }}-{% if metadata.difficulty == " High"
-      %}red{% elif metadata.difficulty=="Medium" %}yellow{% elif metadata.difficulty=="Low" %}green{% else %}blue{%
-      endif %}">
+      src="https://img.shields.io/badge/Difficulty-{{ metadata.difficulty }}-{% if metadata.difficulty == "High" %}red{% elif metadata.difficulty=="Medium" %}yellow{% elif metadata.difficulty=="Low" %}green{% else %}blue{% endif %}">
     {% endif %}
   </div>
 
   <div class="spherex-version-metadata">
     <div class="spherex-version-metadata__items">
       {% if metadata.version and metadata.dashboard_url %}
-      <span class="spherex-version-metadata__item">Version <a href="{{ metadata.dashboard_url }}">{{ metadata.version
-          }}</a></span>
+      <span class="spherex-version-metadata__item">Version <a href="{{ metadata.dashboard_url }}">{{ metadata.version }}</a></span>
       {% elif metadata.version %}
       <span>Version {{ metadata.version }}</span>
       {% endif %}
 
       {% if metadata.date_modified %}
-      <time class="spherex-version-metadata__item" datetime="{{ metadata.date_modified | simple_date }}">{{
-        metadata.date_modified | simple_date }}</time>
+      <time class="spherex-version-metadata__item" datetime="{{ metadata.date_modified | simple_date }}">{{ metadata.date_modified | simple_date }}</time>
       {% endif %}
     </div>
 
