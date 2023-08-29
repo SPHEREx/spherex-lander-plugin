@@ -15,7 +15,9 @@
 {% block info_sidebar %}
 {% block info_header %}
 <header class="lander-info-header">
-  <img src="spherex-logo.png" width="120px" />
+  <a href="/{% if metadata.document_handle_prefix %}{{ metadata.document_handle_prefix.lower() }}{% endif %}">
+    <img src="spherex-logo.png" width="120px" />
+  </a>
 
   {% if metadata.document_handle_prefix %}
   <p class="spherex-document-category">
