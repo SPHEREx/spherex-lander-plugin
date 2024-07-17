@@ -17,22 +17,22 @@ class SpherexMetadata(DocumentMetadata):
     Individual documents can inherit and add to this base set of metadata.
     """
 
-    git_commit_sha: Optional[str]
+    git_commit_sha: Optional[str] = None
     """Git Commit SHA."""
 
-    git_ref: Optional[str]
+    git_ref: Optional[str] = None
     """Git ref (branch or tag)."""
 
-    git_ref_type: Optional[str]
+    git_ref_type: Optional[str] = None
     """Git ref type (branch or tag)."""
 
-    ci_build_id: Optional[str]
+    ci_build_id: Optional[str] = None
     """CI build ID."""
 
-    ci_build_url: Optional[HttpUrl]
+    ci_build_url: Optional[HttpUrl] = None
     """URL of the CI job/build."""
 
-    github_slug: Optional[str]
+    github_slug: Optional[str] = None
     """The slug (``org/name``) of the repository on GitHub."""
 
     @property
