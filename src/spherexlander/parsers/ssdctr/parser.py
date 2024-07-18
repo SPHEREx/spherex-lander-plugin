@@ -18,7 +18,7 @@ __all__ = ["SpherexSsdcTrParser"]
 logger = getLogger(__name__)
 
 
-class SpherexSsdcTrParser(SpherexParser):
+class SpherexSsdcTrParser(SpherexParser[SpherexSsdcTrMetadata]):
     """Lander metadata parser for SPHEREx SSDC-TR documents."""
 
     def extract_metadata(self) -> SpherexSsdcTrMetadata:

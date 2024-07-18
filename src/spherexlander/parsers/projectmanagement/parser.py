@@ -12,7 +12,9 @@ __all__ = ["SpherexProjectManagementParser"]
 logger = getLogger(__name__)
 
 
-class SpherexProjectManagementParser(SpherexParser):
+class SpherexProjectManagementParser(
+    SpherexParser[SpherexProjectManagementMetadata]
+):
     """Lander metadata parser for SPHEREx Project Management (PM) documents."""
 
     def extract_metadata(self) -> SpherexProjectManagementMetadata:

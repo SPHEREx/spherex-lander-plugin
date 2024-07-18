@@ -34,8 +34,10 @@ def test_demodoc() -> None:
 
     assert len(m.authors) == 4
     assert len(m.other_authors) == 2
+    assert m.ipac_lead is not None
     assert m.ipac_lead.name == "Francis Carrillo"
     assert m.ipac_lead.email == "francis@example.com"
+    assert m.spherex_poc is not None
     assert m.spherex_poc.name == "Ursula Gomez"
     assert m.spherex_poc.email == "ursula@example.com"
     assert m.authors[2].name == "Stephanie Lowe"

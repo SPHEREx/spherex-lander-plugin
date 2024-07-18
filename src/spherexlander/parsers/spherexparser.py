@@ -8,7 +8,12 @@ from logging import getLogger
 from typing import Any, List, Optional
 
 import dateutil.parser
-from lander.ext.parser import CiPlatform, Contributor, Parser
+from lander.ext.parser import (
+    CiPlatform,
+    Contributor,
+    DocumentMetadataT,
+    Parser,
+)
 from lander.ext.parser.pandoc import convert_text
 from lander.ext.parser.texutils.extract import (
     LaTeXCommand,
@@ -22,7 +27,7 @@ __all__ = ["SpherexParser", "KVOptionMap"]
 logger = getLogger(__name__)
 
 
-class SpherexParser(Parser):
+class SpherexParser(Parser[DocumentMetadataT]):
     """A base parser for documents that use the ``spherex`` tex class.
 
     Parsers for specific document types can inherit from this base class

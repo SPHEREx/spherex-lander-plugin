@@ -17,22 +17,22 @@ class SpherexMetadata(DocumentMetadata):
     Individual documents can inherit and add to this base set of metadata.
     """
 
-    git_commit_sha: Optional[str]
+    git_commit_sha: Optional[str] = None
     """Git Commit SHA."""
 
-    git_ref: Optional[str]
+    git_ref: Optional[str] = None
     """Git ref (branch or tag)."""
 
-    git_ref_type: Optional[str]
+    git_ref_type: Optional[str] = None
     """Git ref type (branch or tag)."""
 
-    ci_build_id: Optional[str]
+    ci_build_id: Optional[str] = None
     """CI build ID."""
 
-    ci_build_url: Optional[HttpUrl]
+    ci_build_url: Optional[HttpUrl] = None
     """URL of the CI job/build."""
 
-    github_slug: Optional[str]
+    github_slug: Optional[str] = None
     """The slug (``org/name``) of the repository on GitHub."""
 
     @property
@@ -40,7 +40,7 @@ class SpherexMetadata(DocumentMetadata):
         """The GitHub web URL corresponding to the branch or tag."""
         # Ensure sufficient data and GitHub hosting
         if self.repository_url and self.github_slug and self.git_ref:
-            repo_url = self.repository_url
+            repo_url = str(self.repository_url)
             if not repo_url.endswith("/"):
                 repo_url = f"{repo_url}/"
             return urllib.parse.urljoin(repo_url, f"tree/{self.git_ref}")
@@ -52,7 +52,7 @@ class SpherexMetadata(DocumentMetadata):
         """The GitHub web URL corresponding to the commit."""
         # Ensure sufficient data and GitHub hosting
         if self.repository_url and self.github_slug and self.git_commit_sha:
-            repo_url = self.repository_url
+            repo_url = str(self.repository_url)
             if not repo_url.endswith("/"):
                 repo_url = f"{repo_url}/"
             return urllib.parse.urljoin(
@@ -65,10 +65,11 @@ class SpherexMetadata(DocumentMetadata):
     def dashboard_url(self) -> Optional[str]:
         """URL to the edition dashboard."""
         if self.canonical_url:
-            if self.canonical_url.endswith("/"):
-                return f"{self.canonical_url}v/"
+            canonical_url = str(self.canonical_url)
+            if canonical_url.endswith("/"):
+                return f"{canonical_url}v/"
             else:
-                return f"{self.canonical_url}/v/"
+                return f"{canonical_url}/v/"
         else:
             return None
 

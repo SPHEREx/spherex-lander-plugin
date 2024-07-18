@@ -33,6 +33,7 @@ def test_demo() -> None:
     assert m.document_handle_prefix == "SSDC-PM"
     assert len(m.authors) == 3
     assert len(m.other_authors) == 2
+    assert m.ipac_lead is not None
     assert m.ipac_lead.name == "Example Lead"
     assert m.ipac_lead.email == "person@example.edu"
     assert m.spherex_poc is None
@@ -40,5 +41,6 @@ def test_demo() -> None:
     assert m.authors[1].email == "galileo@example.com"
     assert m.authors[2].name == "Isaac Newton"
     assert m.authors[2].email is None
+    assert m.approval is not None
     assert m.approval.name == "Approver Name"
     assert m.approval.date == "2021-12-10"
