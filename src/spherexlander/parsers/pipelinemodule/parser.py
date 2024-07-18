@@ -20,7 +20,9 @@ __all__ = ["SpherexPipelineModuleParser"]
 logger = getLogger(__name__)
 
 
-class SpherexPipelineModuleParser(SpherexParser):
+class SpherexPipelineModuleParser(
+    SpherexParser[SpherexPipelineModuleMetadata]
+):
     """Lander metadata parser for SPHEREx Module Specification (MS)
     documents.
     """

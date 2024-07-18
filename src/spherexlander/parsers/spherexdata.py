@@ -40,7 +40,7 @@ class SpherexMetadata(DocumentMetadata):
         """The GitHub web URL corresponding to the branch or tag."""
         # Ensure sufficient data and GitHub hosting
         if self.repository_url and self.github_slug and self.git_ref:
-            repo_url = self.repository_url
+            repo_url = str(self.repository_url)
             if not repo_url.endswith("/"):
                 repo_url = f"{repo_url}/"
             return urllib.parse.urljoin(repo_url, f"tree/{self.git_ref}")
@@ -52,7 +52,7 @@ class SpherexMetadata(DocumentMetadata):
         """The GitHub web URL corresponding to the commit."""
         # Ensure sufficient data and GitHub hosting
         if self.repository_url and self.github_slug and self.git_commit_sha:
-            repo_url = self.repository_url
+            repo_url = str(self.repository_url)
             if not repo_url.endswith("/"):
                 repo_url = f"{repo_url}/"
             return urllib.parse.urljoin(
@@ -65,10 +65,11 @@ class SpherexMetadata(DocumentMetadata):
     def dashboard_url(self) -> Optional[str]:
         """URL to the edition dashboard."""
         if self.canonical_url:
-            if self.canonical_url.endswith("/"):
-                return f"{self.canonical_url}v/"
+            canonical_url = str(self.canonical_url)
+            if canonical_url.endswith("/"):
+                return f"{canonical_url}v/"
             else:
-                return f"{self.canonical_url}/v/"
+                return f"{canonical_url}/v/"
         else:
             return None
 
